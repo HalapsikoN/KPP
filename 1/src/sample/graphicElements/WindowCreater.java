@@ -13,6 +13,7 @@ public class WindowCreater {
     public void display(Stage primaryStage){
         BorderPane root = new BorderPane();
         Scene scene=new Scene(root, 400, 80);
+        primaryStage.setTitle("Copy buttons");
 
         //поле
         GridPaneCreater myGridPane=new GridPaneCreater();
@@ -36,11 +37,10 @@ public class WindowCreater {
         textField=new TextFieldCreater().createTextField();
         gridPane.add(textField, 2, 1);
 
-        Button button=new ButtonCreater().createButton("Copy 1 to 2");
+        Button button=new ButtonCreater().createButtonToCopyText("Copy 1 to 2", gridPane,3,4);
         gridPane.add(button, 0, 2);
 
-
-        button=new ButtonCreater().createButton("Copy 2 to 3");
+        button=new ButtonCreater().createButtonToCopyText("Copy 2 to 3",gridPane,4,5);
         gridPane.add(button, 1, 2);
 
         root.setCenter(gridPane);
