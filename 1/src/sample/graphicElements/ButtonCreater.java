@@ -17,7 +17,7 @@ public class ButtonCreater {
 
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event){
                 handleButton(gridPane,inputText,outputText);
             }
         });

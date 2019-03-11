@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 
-public class GridPaneCreater {
+public class GridPaneCreator {
 
     public GridPane createGridPane(double kol){
         GridPane gridPane=new GridPane();

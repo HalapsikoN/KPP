@@ -16,11 +16,12 @@ public class WindowCreater {
         primaryStage.setTitle("Copy buttons");
 
         //поле
-        GridPaneCreater myGridPane=new GridPaneCreater();
+        GridPaneCreator myGridPane=new GridPaneCreator();
         GridPane gridPane=myGridPane.createGridPane(3);
 
         Label label=new LabelCreater().createLabel("1");
         gridPane.add(label,0,0);
+
 
         label=new LabelCreater().createLabel("2");
         gridPane.add(label,1,0);
