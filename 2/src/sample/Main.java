@@ -1,8 +1,11 @@
-package sample.programStarter;
+package sample;
 
+import graphicElements.WindowCreator;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.graphicElements.WindowCreator;
 
 public class Main extends Application {
 

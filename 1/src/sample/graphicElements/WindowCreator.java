@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class WindowCreater {
+public class WindowCreator {
 
     public void display(Stage primaryStage){
         BorderPane root = new BorderPane();
