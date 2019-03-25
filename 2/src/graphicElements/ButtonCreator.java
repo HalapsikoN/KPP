@@ -76,15 +76,17 @@ public class ButtonCreator {
 
             l = (Label) gridPane.getChildren().get(13+k*4);
             l.setText("Lecture - "+lecture.getThemeOfLecture());
-            String prepod = "Teacher - "+listTeacher.get(k).getName();
+            if (k<listTeacher.size()) {
+                String prepod = "Teacher - " + listTeacher.get(k).getName();
             /*for (int i = 0; i < listTeacher.size(); ++i) {
                 if (lecture.getSubject().equals(listTeacher.get(i).getSubject().getSubject())) {
                     prepod+= listTeacher.get(i).getName();
                     break;
                 }
             }*/
-            l = (Label) gridPane.getChildren().get(14+k*4);
-            l.setText(prepod);
+                l = (Label) gridPane.getChildren().get(14 + k * 4);
+                l.setText(prepod);
+            }
         }
     }
 }

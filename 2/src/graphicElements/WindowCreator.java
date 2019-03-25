@@ -13,7 +13,7 @@ public class WindowCreator {
     public void display(Stage primaryStage){
         primaryStage.setResizable(false);
         BorderPane root = new BorderPane();
-        Scene scene=new Scene(root, 1000, 700);
+        Scene scene=new Scene(root, 1000, 800);
         primaryStage.setTitle("University");
 
         GridPaneCreator myGridPane= new GridPaneCreator();
