@@ -31,50 +31,49 @@ public class ButtonCreator {
     }
 
     private void handleButton(GridPane gridPane) {
-        try {
-            TextField lectureField = (TextField) gridPane.getChildren().get(3);
-            TextField subject1Field = (TextField) gridPane.getChildren().get(1);
-            TextField teacherField = (TextField) gridPane.getChildren().get(5);
-            //TextField subject2Field=(TextField) gridPane.getChildren().get(7);
-            TextField studentField = (TextField) gridPane.getChildren().get(7);
+        TextField lectureField = (TextField) gridPane.getChildren().get(3);
+        TextField subject1Field = (TextField) gridPane.getChildren().get(1);
+        TextField teacherField = (TextField) gridPane.getChildren().get(5);
+        //TextField subject2Field=(TextField) gridPane.getChildren().get(7);
+        TextField studentField = (TextField) gridPane.getChildren().get(7);
 
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
-            }
+        String clear=" ";
+        for (int j=11; j<50; ++j){
+            Label label = (Label) gridPane.getChildren().get(j);
+            label.setText(clear);
+        }
 
-            University university = new University();
+        University university = new University();
 
-            String string = lectureField.getText();
-            String string1 = subject1Field.getText();
-            university.makePlanOfClasses(string1, string);
+        String string = lectureField.getText();
+        String string1 = subject1Field.getText();
+        university.makePlanOfClasses(string1, string);
 
-            if (string.isEmpty() || string1.isEmpty())
-                return;
+        if (string.isEmpty() || string1.isEmpty())
+            return;
 
-            string = teacherField.getText();
-            string1 = subject1Field.getText();
-            university.hireTeacher(string, string1);
+        string = teacherField.getText();
+        string1 = subject1Field.getText();
+        university.hireTeacher(string, string1);
 
-            if (string.isEmpty() || string1.isEmpty())
-                return;
+        if (string.isEmpty() || string1.isEmpty())
+            return;
 
-            string = studentField.getText();
-            university.enrollStudent(string);
+        string = studentField.getText();
+        university.enrollStudent(string);
 
-            if (string.isEmpty())
-                return;
+        if (string.isEmpty())
+            return;
 
-            List<Lecture> listLecture = university.getLectureList();
-            List<Student> listStudent = university.getStudentList();
-            List<Teacher> listTeacher = university.getTeacherList();
+        List<Lecture> listLecture = university.getLectureList();
+        List<Student> listStudent = university.getStudentList();
+        List<Teacher> listTeacher = university.getTeacherList();
 
 
-            Register teacherRegister = listTeacher.get(0).getRegister(listStudent, listLecture);
-            Register headmanRegister = new Headman(listStudent.get(0).getName()).getRegister(listStudent, listLecture);
+        Register teacherRegister = listTeacher.get(0).getRegister(listStudent, listLecture);
+        Register headmanRegister = new Headman(listStudent.get(0).getName()).getRegister(listStudent, listLecture);
 
-            int k;
+        int k;
 
 
 
@@ -101,111 +100,97 @@ public class ButtonCreator {
 */
 
 
-            for (k = 0; k < listLecture.size() && k < 4; ++k) {
-                Lecture lecture = listLecture.get(k);
+        for (k = 0; k < listLecture.size() && k < 4; ++k) {
+            Lecture lecture = listLecture.get(k);
 
-                String output = "";
-                for (int i = 0; i < listStudent.size(); ++i) {
-                    output += listStudent.get(i).getName();
-                    output += "\n";
-                }
-                String output2 = "";
-                for (int i = 0; i < listStudent.size(); ++i) {
-                    output2 += (((boolean) headmanRegister.getStringRegisters().get(i).getVisit().get(lecture)) ? "+" : "-");
-                    output2 += "\n";
-                }
-
-                Label label = (Label) gridPane.getChildren().get(11 + k * 4);
-                label.setText(output);
-                label = (Label) gridPane.getChildren().get(12 + k * 4);
-                label.setText(output2);
-
-                label = (Label) gridPane.getChildren().get(13 + k * 4);
-                label.setText("Lecture - " + lecture.getThemeOfLecture());
-                if (k < listTeacher.size()) {
-                    String prepod = "Teacher - ";
-                    for (int i = 0; i < listTeacher.size(); ++i) {
-                        if (lecture.getSubjectName().equals(listTeacher.get(i).getSubject().getSubjectName())) {
-                            prepod += listTeacher.get(i).getName();
-                            break;
-                        }
-                    }
-                    label = (Label) gridPane.getChildren().get(14 + k * 4);
-                    label.setText(prepod);
-                }
+            String output = "";
+            for (int i = 0; i < listStudent.size(); ++i) {
+                output += listStudent.get(i).getName();
+                output += "\n";
+            }
+            String output2 = "";
+            for (int i = 0; i < listStudent.size(); ++i) {
+                output2 += (((boolean) headmanRegister.getStringRegisters().get(i).getVisit().get(lecture)) ? "+" : "-");
+                output2 += "\n";
             }
 
-            k = 14 + k * 4;
-            k++;
-
-            Label label = (Label) gridPane.getChildren().get(k++);
-            label.setText("----------------------------------------Headman register(up)----------------------------------------");
-            label = (Label) gridPane.getChildren().get(k++);
-            label.setText("----------------------------------------Teacher register(down)--------------------------------------");
-
-            for (k = 0; k < listLecture.size() && k < 4; ++k) {
-                Lecture lecture = listLecture.get(k);
-
-                String output = "";
-                for (int i = 0; i < listStudent.size(); ++i) {
-                    output += listStudent.get(i).getName();
-                    output += "\n";
-                }
-                String output2 = "";
-                for (int i = 0; i < listStudent.size(); ++i) {
-                    output2 += (((boolean) teacherRegister.getStringRegisters().get(i).getVisit().get(lecture)) ? "+" : "-");
-                    output2 += "\n";
-                }
-
-                label = (Label) gridPane.getChildren().get(29 + k * 4);
-                label.setText(output);
-                label = (Label) gridPane.getChildren().get(30 + k * 4);
-                label.setText(output2);
-
-                label = (Label) gridPane.getChildren().get(31 + k * 4);
-                label.setText("Lecture - " + lecture.getThemeOfLecture());
-                if (k < listTeacher.size()) {
-                    String prepod = "Teacher - ";
-                    for (int i = 0; i < listTeacher.size(); ++i) {
-                        if (lecture.getSubjectName().equals(listTeacher.get(i).getSubject().getSubjectName())) {
-                            prepod += listTeacher.get(i).getName();
-                            break;
-                        }
-                    }
-                    label = (Label) gridPane.getChildren().get(32 + k * 4);
-                    label.setText(prepod);
-                }
-            }
-            k = 32 + k * 4;
-            k++;
-
-            label = (Label) gridPane.getChildren().get(k++);
-            label.setText("-------------------------------------------------------------------------------------------------------");
-            label = (Label) gridPane.getChildren().get(k++);
-            label.setText("--------------------------------------------------------------------------------------------------------");
-
-
-            //map.equals(map1);
-            label = (Label) gridPane.getChildren().get(k++);
-            label.setText("The registers of headman and teacher are");
-            String output2 = (headmanRegister.equals(teacherRegister)) ? "the SAME" : "DIFFERENT";
-            label = (Label) gridPane.getChildren().get(k++);
+            Label label = (Label) gridPane.getChildren().get(11 + k * 4);
+            label.setText(output);
+            label = (Label) gridPane.getChildren().get(12 + k * 4);
             label.setText(output2);
-        }
-        catch (Exception e) {
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
+
+            label = (Label) gridPane.getChildren().get(13 + k * 4);
+            label.setText("Lecture - " + lecture.getThemeOfLecture());
+            if (k < listTeacher.size()) {
+                String prepod = "Teacher - ";
+                for (int i = 0; i < listTeacher.size(); ++i) {
+                    if (lecture.getSubjectName().equals(listTeacher.get(i).getSubject().getSubjectName())) {
+                        prepod += listTeacher.get(i).getName();
+                        break;
+                    }
+                }
+                label = (Label) gridPane.getChildren().get(14 + k * 4);
+                label.setText(prepod);
             }
         }
-        finally {
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
+
+        k = 14 + k * 4;
+        k++;
+
+        Label label = (Label) gridPane.getChildren().get(k++);
+        label.setText("----------------------------------------Headman register(up)----------------------------------------");
+        label = (Label) gridPane.getChildren().get(k++);
+        label.setText("----------------------------------------Teacher register(down)--------------------------------------");
+
+        for (k = 0; k < listLecture.size() && k < 4; ++k) {
+            Lecture lecture = listLecture.get(k);
+
+            String output = "";
+            for (int i = 0; i < listStudent.size(); ++i) {
+                output += listStudent.get(i).getName();
+                output += "\n";
+            }
+            String output2 = "";
+            for (int i = 0; i < listStudent.size(); ++i) {
+                output2 += (((boolean) teacherRegister.getStringRegisters().get(i).getVisit().get(lecture)) ? "+" : "-");
+                output2 += "\n";
+            }
+
+            label = (Label) gridPane.getChildren().get(29 + k * 4);
+            label.setText(output);
+            label = (Label) gridPane.getChildren().get(30 + k * 4);
+            label.setText(output2);
+
+            label = (Label) gridPane.getChildren().get(31 + k * 4);
+            label.setText("Lecture - " + lecture.getThemeOfLecture());
+            if (k < listTeacher.size()) {
+                String prepod = "Teacher - ";
+                for (int i = 0; i < listTeacher.size(); ++i) {
+                    if (lecture.getSubjectName().equals(listTeacher.get(i).getSubject().getSubjectName())) {
+                        prepod += listTeacher.get(i).getName();
+                        break;
+                    }
+                }
+                label = (Label) gridPane.getChildren().get(32 + k * 4);
+                label.setText(prepod);
             }
         }
+        k = 32+k*4;
+        k++;
+
+        label = (Label) gridPane.getChildren().get(k++);
+        label.setText("-------------------------------------------------------------------------------------------------------");
+        label = (Label) gridPane.getChildren().get(k++);
+        label.setText("--------------------------------------------------------------------------------------------------------");
+
+
+        //map.equals(map1);
+        label = (Label) gridPane.getChildren().get(k++);
+        label.setText("The registers of headman and teacher are");
+        String output2 = (headmanRegister.equals(teacherRegister)) ? "the SAME" : "DIFFERENT";
+        label = (Label) gridPane.getChildren().get(k++);
+        label.setText(output2);
+
 
     }
 }
