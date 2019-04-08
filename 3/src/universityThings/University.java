@@ -1,7 +1,10 @@
 package universityThings;
 
+import customExceptions.EnteredNumberInName;
+import customExceptions.HugeLectureSize;
+import customExceptions.NotEnoughSubjects;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,7 +32,7 @@ public class University {
         return lectureList;
     }
 
-    public void enrollStudent(String namesOfStudents){
+    public void enrollStudent(String namesOfStudents) throws EnteredNumberInName {
         String[] names=namesOfStudents.split(" ");
         /*for (String name : names) {
 
@@ -40,25 +43,60 @@ public class University {
         for(int i=0; i<names.length;++i) {
             studentList.add(new Student(names[i]));
         }
+        for(String name:names){
+/*            if(isNumeric(name)){
+                throw new EnteredNumberInName();
+            }*/
+            if(!name.matches("^\\D*$") || name.length()>10){
+                throw new EnteredNumberInName();
+            }
+        }
     }
 
-    public void hireTeacher(String namesOfTeachers, String subjectStr){
+    public void hireTeacher(String namesOfTeachers, String subjectStr) throws EnteredNumberInName {
         String[] names=namesOfTeachers.split(" ");
         String[] subjects=subjectStr.split(" ");
+
         for(int i=0; i<names.length;++i) {
             if(i<subjects.length) {
                 teacherList.add(new Teacher(names[i], subjects[i]));
             }
         }
+        for(String name:names){
+            if(!name.matches("^\\D*$") || name.length()>10){
+                throw new EnteredNumberInName();
+            }
+        }
+        for(String subject:subjects){
+            if(!subject.matches("^\\D*$") || subject.length()>10){
+                throw new EnteredNumberInName();
+            }
+        }
     }
 
-    public void makePlanOfClasses(String namesSubject, String themesSubject){
+    public void makePlanOfClasses(String namesSubject, String themesSubject) throws EnteredNumberInName, NotEnoughSubjects, HugeLectureSize {
         String[] names=namesSubject.split(" ");
         String[] themes=themesSubject.split(" ");
         for(int i=0; i<names.length;++i) {
             if(i<themes.length) {
                 lectureList.add(new Lecture(names[i], themes[i]));
             }
+        }
+        for(String name:names){
+            if(!name.matches("^\\D*$") || name.length()>10){
+                throw new EnteredNumberInName();
+            }
+        }
+        for(String theme:themes){
+            if(!theme.matches("^\\D*$") || theme.length()>10){
+                throw new EnteredNumberInName();
+            }
+        }
+        if(names.length>3){
+            throw new HugeLectureSize();
+        }
+        if(names.length!=themes.length){
+            throw new NotEnoughSubjects();
         }
     }
 
@@ -75,5 +113,15 @@ public class University {
     @Override
     public int hashCode() {
         return Objects.hash(teacherList, studentList, lectureList);
+    }
+
+    private boolean isNumeric(String str){
+        try{
+            Double d=Double.parseDouble(str);
+        }
+        catch (NumberFormatException nfe){
+            return false;
+        }
+        return true;
     }
 }

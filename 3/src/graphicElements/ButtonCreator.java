@@ -1,5 +1,8 @@
 package graphicElements;
 
+import customExceptions.EnteredNumberInName;
+import customExceptions.HugeLectureSize;
+import customExceptions.NotEnoughSubjects;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -9,9 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import universityThings.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ButtonCreator {
     public Button createButtonToCopyText(String text, GridPane gridPane){
@@ -30,6 +31,21 @@ public class ButtonCreator {
         return button;
     }
 
+    private void clearOutput(GridPane gridPane){
+        String clear = " ";
+        for (int j = 11; j < 50; ++j) {
+            Label label = (Label) gridPane.getChildren().get(j);
+            label.setText(clear);
+        }
+    }
+
+    private void setMessage(GridPane gridPane, String message){
+        Label label = (Label) gridPane.getChildren().get(11);
+        label.setText(message);
+        label = (Label) gridPane.getChildren().get(12);
+        label.setText(message);
+    }
+
     private void handleButton(GridPane gridPane) {
         try {
             TextField lectureField = (TextField) gridPane.getChildren().get(3);
@@ -38,13 +54,11 @@ public class ButtonCreator {
             //TextField subject2Field=(TextField) gridPane.getChildren().get(7);
             TextField studentField = (TextField) gridPane.getChildren().get(7);
 
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
-            }
+            //clearOutput(gridPane);
 
             University university = new University();
+
+            clearOutput(gridPane);
 
             String string = lectureField.getText();
             String string1 = subject1Field.getText();
@@ -71,37 +85,13 @@ public class ButtonCreator {
             List<Teacher> listTeacher = university.getTeacherList();
 
 
+
             Register teacherRegister = listTeacher.get(0).getRegister(listStudent, listLecture);
             Register headmanRegister = new Headman(listStudent.get(0).getName()).getRegister(listStudent, listLecture);
 
             int k;
 
-
-
-       /* for(k=0;k<headmanRegister.getStringRegisters().size();++k){
-            StringRegister stringRegister=headmanRegister.getStringRegisters().get(k);
-
-            String output = "";
-            for (int i = 0; i < listStudent.size(); ++i) {
-                output += listStudent.get(i).getName();
-                output += "\n";
-            }
-            String output2 = "";
-            for (int i = 0; i < listStudent.size(); ++i) {
-                output2 += (((boolean) stringRegister.getVisit().get(listStudent.get(i).getName())) ? "+" : "-");
-                output2 += "\n";
-            }
-            Label label = (Label) gridPane.getChildren().get(11+k*4);
-            label.setText(output);
-            label = (Label) gridPane.getChildren().get(12+k*4);
-            label.setText(output2);
-
-
-        }
-*/
-
-
-            for (k = 0; k < listLecture.size() && k < 4; ++k) {
+            for (k = 0; k < listLecture.size() && k < 3; ++k) {
                 Lecture lecture = listLecture.get(k);
 
                 String output = "";
@@ -143,7 +133,7 @@ public class ButtonCreator {
             label = (Label) gridPane.getChildren().get(k++);
             label.setText("----------------------------------------Teacher register(down)--------------------------------------");
 
-            for (k = 0; k < listLecture.size() && k < 4; ++k) {
+            for (k = 0; k < listLecture.size() && k < 3; ++k) {
                 Lecture lecture = listLecture.get(k);
 
                 String output = "";
@@ -185,6 +175,7 @@ public class ButtonCreator {
             label.setText("--------------------------------------------------------------------------------------------------------");
 
 
+
             //map.equals(map1);
             label = (Label) gridPane.getChildren().get(k++);
             label.setText("The registers of headman and teacher are");
@@ -192,19 +183,14 @@ public class ButtonCreator {
             label = (Label) gridPane.getChildren().get(k++);
             label.setText(output2);
         }
-        catch (Exception e) {
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
-            }
+        catch (EnteredNumberInName | HugeLectureSize | NotEnoughSubjects enn){
+            clearOutput(gridPane);
+            setMessage(gridPane, enn.getMessage());
+        } catch (Exception e) {
+            System.out.println("something wrong");
         }
         finally {
-            String clear = " ";
-            for (int j = 11; j < 50; ++j) {
-                Label label = (Label) gridPane.getChildren().get(j);
-                label.setText(clear);
-            }
+            //clearOutput(gridPane);
         }
 
     }
