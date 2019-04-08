@@ -12,9 +12,12 @@ public class Register {
     public Register(List<Student> students, List<Lecture> lectures) {
 
         stringRegisters=new ArrayList<>();
-        for (int i=0; i<students.size(); ++i)
+        /*for (int i=0; i<students.size(); ++i)
         {
             stringRegisters.add(new StringRegister(students.get(i), lectures));
+        }*/
+        for(Student student:students) {
+            stringRegisters.add(new StringRegister(student,lectures));
         }
     }
 

@@ -8,15 +8,18 @@ import java.util.Objects;
 public class StringRegister {
 
     private String name;
-    private Map visit;
+    private Map<Lecture, Boolean> visit;
 
     public StringRegister(Student student, List<Lecture> lectures) {
         this.name = student.getName();
         visit=new HashMap();
 
-        for (int i=0; i<lectures.size(); ++i)
+        /*for (int i=0; i<lectures.size(); ++i)
         {
             visit.put(lectures.get(i), student.visitLecture(lectures.get(i)));
+        }*/
+        for(Lecture lecture:lectures){
+            visit.put(lecture,student.visitLecture(lecture));
         }
     }
 
